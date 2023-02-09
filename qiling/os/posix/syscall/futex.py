@@ -37,9 +37,11 @@ def ql_syscall_futex(ql: Qiling, uaddr: int, op: int, val: int, timeout: int, ua
         regreturn = ql.os.futexm.futex_wait(ql, uaddr, ql.os.thread_management.cur_thread, val)
 
     elif op & (FUTEX_PRIVATE_FLAG - 1) == FUTEX_WAIT_BITSET:
+        return 0
         regreturn = ql.os.futexm.futex_wait(ql, uaddr, ql.os.thread_management.cur_thread, val, val3)
 
     elif op & (FUTEX_PRIVATE_FLAG - 1) == FUTEX_WAKE:
+        return 0
         regreturn = ql.os.futexm.futex_wake(ql, uaddr,ql.os.thread_management.cur_thread, val)
 
     elif op & (FUTEX_PRIVATE_FLAG - 1) == FUTEX_WAKE_BITSET:
