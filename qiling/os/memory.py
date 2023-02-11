@@ -93,6 +93,19 @@ class QlMemoryManager:
             mem_info: map entry label
             is_mmio: memory range is mmio
         """
+        def __perms_mapping(ps: int) -> str:
+            perms_d = {
+                UC_PROT_READ  : 'r',
+                UC_PROT_WRITE : 'w',
+                UC_PROT_EXEC  : 'x'
+            }
+            return ''.join(val if idx & ps else '-' for idx, val in perms_d.items())
+        len_addr=8
+        len_label=10
+        perms_str = __perms_mapping(mem_p)
+         
+        imgstr = f'---->>     {mem_s:0{len_addr}x} - {mem_e:0{len_addr}x}   {perms_str:5s}   {mem_info:{len_label}s}  '
+        self.ql.log.debug(imgstr)
 
         bisect.insort(self.map_info, (mem_s, mem_e, mem_p, mem_info, is_mmio))
 
