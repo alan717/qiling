@@ -307,6 +307,7 @@ class QlGdb(QlDebugger):
             size, data = data.split(':')
 
             addr = int(addr, 16)
+            size = int(size,10)
             data = bytes.fromhex(data)
 
             assert len(data) == size

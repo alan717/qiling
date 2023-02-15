@@ -56,7 +56,7 @@ class QlGdbUtils:
         for bp in targets:
             self.swbp.add(bp)
 
-        self.ql.log.info(f'{PROMPT} breakpoint added at {addr:#x}')
+        self.ql.log.info(f'{PROMPT} soft breakpoint added at {addr:#x}')
 
         return True
 
