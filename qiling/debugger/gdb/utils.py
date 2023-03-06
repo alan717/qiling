@@ -63,11 +63,12 @@ class QlGdbUtils:
     def bp_remove(self, addr: int, size: int) -> bool:
         targets = set(addr + i for i in range(size or 1))
 
-        if not targets.issubset(self.swbp):
+        if not targets & self.swbp:
             return False
 
         for bp in targets:
-            self.swbp.remove(bp)
+            if bp in self.swbp:
+                self.swbp.remove(bp)
 
         self.ql.log.info(f'{PROMPT} breakpoint removed from {addr:#x}')
 
